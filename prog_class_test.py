@@ -1,12 +1,13 @@
-from prog_class import import_url
+from bs4 import BeautifulSoup
+from prog_class import setup_url
 import unittest
 
 
 class TestStringMethods(unittest.TestCase):
 
-    def test_import_url(self):
-        temp = import_url()
-        self.assertEqual(type(temp), str)
+    def test_setup_url(self):
+        temp = setup_url('http://rosettacode.org/wiki/Factorial')
+        self.assertEqual(type(temp), BeautifulSoup)
 
     # def test_upper(self):
     #     self.assertEqual('foo'.upper(), 'FOO')
