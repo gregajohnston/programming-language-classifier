@@ -2,7 +2,8 @@ from bs4 import BeautifulSoup
 from urllib.request import urlopen
 from urllib.request import Request
 
-BASE_URL = 'http://www.rosettacode.org/wiki/Category:Programming_Tasks'
+SEARCH_URL = 'http://www.rosettacode.org/wiki/Category:Programming_Tasks'
+BASE_URL = 'http://www.rosettacode.org'
 
 LANGUAGE_LIST = ['c highlighted_source',
                  'csharp highlighted_source',
@@ -48,13 +49,14 @@ def get_examples(soup):
         with open(file_name, 'a') as f:
             example = soup.find_all('pre', class_=language, limit=1)
             for code in example:
-                f.write(' '.join(code.text.split()))
+                f.write(' '.join(code.text.split())+'\n')
 
 
 def main():
-    code_soup = setup_url(BASE_URL)
+    code_soup = setup_url(SEARCH_URL)
     code_urls_list = find_example_urls(code_soup)
     for code_url in code_urls_list:
+        print(code_url)
         code_soup = setup_url(code_url)
         get_examples(code_soup)
 
